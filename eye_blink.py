@@ -9,21 +9,22 @@ import time
 GPIO.setmode(GPIO.BCM)
 left_eye = 18
 right_eye = 23
-BLINK_INTERVAL = 10  # seconds
+BLINK_INTERVAL = 20  # seconds
+OPEN_INTERVAL = 15   # seconds
 
 GPIO.setup(left_eye, GPIO.OUT)
 GPIO.setup(right_eye, GPIO.OUT)
         
 try:
-    # Turn on both eyes
-    GPIO.output(left_eye, True)
-    GPIO.output(right_eye, True)
-    # Now just blink the left eye every 10 seconds
+    # Now just blink both
     while True:
-        time.sleep(BLINK_INTERVAL)
-        GPIO.output(left_eye, False)
-        time.sleep(0.25)
+        # Turn on both eyes
         GPIO.output(left_eye, True)
+        GPIO.output(right_eye, True)
+        time.sleep(OPEN_INTERVAL)
+        GPIO.output(left_eye, False)
+        GPIO.output(right_eye, False)
+        time.sleep(BLINK_INTERVAL)
 finally:
     print("Cleaning up")
     GPIO.cleanup()
